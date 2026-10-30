@@ -9,7 +9,11 @@ export class TasksController {
 
   @Get()
   findAll() {
-    return this.taskService.findAll();
+    return {
+      success: true,
+      message: "Tasks fetched successfully.",
+      data: this.taskService.findAll()
+    };
   };
 
 };
