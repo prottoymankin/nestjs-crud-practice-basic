@@ -19,8 +19,16 @@ export class TasksService {
     }
   ];
 
-  findAll () {
+  findAll (isCompleted?: string) {
+    if (isCompleted === 'true') {
+      return this.tasks.filter(task => task.isCompleted);
+    }
+
+    if (isCompleted === 'false') {
+      return this.tasks.filter(task => task.isCompleted === false)
+    }
+
     return this.tasks;
-  }
+  };
 
 };
