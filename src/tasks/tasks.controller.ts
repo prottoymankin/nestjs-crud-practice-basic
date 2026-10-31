@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { TasksService } from './tasks.service.js';
+import { CreateTaskDto } from './dto/create-task.dto.js';
 
 @Controller('tasks')
 
@@ -17,7 +18,7 @@ export class TasksController {
   };
 
   @Post()
-  create(@Body() payload: any) {
+  create(@Body() payload: CreateTaskDto) {
     return {
       success: true,
       message: "New task created successfully.",
