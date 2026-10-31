@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { TasksService } from './tasks.service.js';
 
 @Controller('tasks')
@@ -15,5 +15,14 @@ export class TasksController {
       data: this.taskService.findAll(isCompleted)
     };
   };
+
+  @Post()
+  create(@Body() payload: any) {
+    return {
+      success: true,
+      message: "New task created successfully.",
+      data: this.taskService.create(payload)
+    }
+  }
 
 };

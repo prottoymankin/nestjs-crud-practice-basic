@@ -31,4 +31,16 @@ export class TasksService {
     return this.tasks;
   };
 
+  create(payload: any) {
+    const newTask = {
+      id: this.tasks.length + 1,
+      ...payload,
+      createdAt: new Date()
+    };
+
+    this.tasks.push(newTask);
+
+    return newTask;
+  };
+
 };
