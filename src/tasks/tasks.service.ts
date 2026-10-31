@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { Task } from './task.interface.js';
 import { CreateTaskDto } from './dto/create-task.dto.js';
+import { FilterTaskDto } from './dto/filter-task.dto.js';
 
 @Injectable()
 
@@ -8,7 +9,9 @@ export class TasksService {
 
   private readonly tasks: Task[] = [];
 
-  findAll (isCompleted?: string) {
+  findAll (query: FilterTaskDto) {
+    const { isCompleted } = query;
+
     if (isCompleted === 'true') {
       return this.tasks.filter(task => task.isCompleted);
     }
