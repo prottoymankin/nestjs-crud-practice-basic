@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { TasksService } from './tasks.service.js';
 import { CreateTaskDto } from './dto/create-task.dto.js';
 import { FilterTaskDto } from './dto/filter-task.dto.js';
@@ -26,5 +26,14 @@ export class TasksController {
       data: this.taskService.create(payload)
     }
   }
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return {
+      success: true,
+      message: "Task fetched successfully.",
+      data: this.taskService.findOne(id)
+    };
+  };
 
 };
