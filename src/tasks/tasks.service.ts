@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import type { Task } from './task.interface.js';
 import { CreateTaskDto } from './dto/create-task.dto.js';
 import { FilterTaskDto } from './dto/filter-task.dto.js';
+import { UpdateTaskDto } from './dto/update-task.dto.js';
 
 @Injectable()
 
@@ -71,6 +72,34 @@ export class TasksService {
       success: true,
       message: 'Task deleted successfully.',
       data: this.tasks
+    };
+  };
+
+  updateOne(id: number, payload: UpdateTaskDto) {
+    const { title, description } = payload;
+    
+    if (!title?.trim() && !description?.trim()) {
+      throw new BadRequestException('At least one field is required to update task.');
+    }
+
+    const task = this.tasks.find(task => task.id === id);
+
+    if (!task) {
+      throw new NotFoundException('Task not found.');
+    }
+
+    if (title?.trim()) {
+      task.title = title;
+    }
+
+    if (description?.trim()) {
+      task.description = description;
+    }
+
+    return {
+      success: true,
+      message: 'Task updated successfully.',
+      data: task
     };
   };
 
