@@ -11,29 +11,17 @@ export class TasksController {
 
   @Get()
   findAll(@Query() query: FilterTaskDto) {
-    return {
-      success: true,
-      message: "Tasks fetched successfully.",
-      data: this.taskService.findAll(query)
-    };
+    return this.taskService.findAll(query);
   };
 
   @Post()
   create(@Body() payload: CreateTaskDto) {
-    return {
-      success: true,
-      message: "New task created successfully.",
-      data: this.taskService.create(payload)
-    }
-  }
+    return this.taskService.create(payload);
+  };
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
-    return {
-      success: true,
-      message: "Task fetched successfully.",
-      data: this.taskService.findOne(id)
-    };
+    return this.taskService.findOne(id);
   };
 
   @Delete(':id')

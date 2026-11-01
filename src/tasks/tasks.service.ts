@@ -20,7 +20,11 @@ export class TasksService {
       return this.tasks.filter(task => task.isCompleted === false)
     }
 
-    return this.tasks;
+    return {
+      success: true,
+      message: "Tasks fetched successfully.",
+      data: this.tasks
+    };
   };
 
   create(payload: CreateTaskDto) {
@@ -33,7 +37,11 @@ export class TasksService {
 
     this.tasks.push(newTask);
 
-    return newTask;
+    return {
+      success: true,
+      message: "New task created successfully.",
+      data: newTask
+    };
   };
 
   findOne(id: number) {
@@ -43,17 +51,18 @@ export class TasksService {
       throw new NotFoundException('Task not found.');
     }
 
-    return task;
+    return {
+      success: true,
+      message: "Task fetched successfully.",
+      data: task
+    };
   };
 
   deleteOne(id: number) {
     const index = this.tasks.findIndex(task => task.id === id);
 
     if (index === -1) {
-      throw new NotFoundException({
-        success: false,
-        message: 'Task not found.'
-      });
+      throw new NotFoundException('Task not found.');
     }
 
     this.tasks.splice(index, 1);
