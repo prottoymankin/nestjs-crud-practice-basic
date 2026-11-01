@@ -44,6 +44,25 @@ export class TasksService {
     }
 
     return task;
-  }
+  };
+
+  deleteOne(id: number) {
+    const index = this.tasks.findIndex(task => task.id === id);
+
+    if (index === -1) {
+      throw new NotFoundException({
+        success: false,
+        message: 'Task not found.'
+      });
+    }
+
+    this.tasks.splice(index, 1);
+
+    return {
+      success: true,
+      message: 'Task deleted successfully.',
+      data: this.tasks
+    };
+  };
 
 };
