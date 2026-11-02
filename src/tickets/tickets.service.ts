@@ -58,4 +58,19 @@ export class TicketsService {
     return ticket;
   };
 
+  create(payload: any) {
+    const ticket: Ticket = {
+      id: this.tickets.length + 1,
+      subject: payload.subject,
+      description: payload.description,
+      priority: payload.priority,
+      status: 'open',
+      createdAt: new Date().toISOString()
+    };
+
+    this.tickets.push(ticket);
+    
+    return ticket;
+  };
+
 };
