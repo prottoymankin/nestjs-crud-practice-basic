@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Ticket } from './ticket.interface.js';
 
 @Injectable()
@@ -34,6 +34,16 @@ export class TicketsService {
 
   findAll() {
     return this.tickets;
+  };
+
+  findOne(id: number) {
+    const ticket = this.tickets.find(ticket => ticket.id === id);
+
+    if (!ticket) {
+      throw new NotFoundException('Ticket not found.');
+    }
+
+    return ticket;
   };
 
 };
