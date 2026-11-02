@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Ticket } from './ticket.interface.js';
 import { CreateTicketDto } from './dto/create-ticket.dto.js';
+import { FilterTicketQueryDto } from './dto/filter-ticket-query.dto.js';
 
 @Injectable()
 
@@ -33,7 +34,9 @@ export class TicketsService {
     }
   ];
 
-  findAll(status?: Ticket['status'], priority?: Ticket['priority']) {
+  findAll(filters: FilterTicketQueryDto) {
+    const { status, priority } = filters;
+
     if (status && priority) {
       return this.tickets.filter(ticket => ticket.status === status && ticket.priority === priority);
     }

@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs
 import { TicketsService } from './tickets.service.js';
 import { Ticket } from './ticket.interface.js';
 import { CreateTicketDto } from './dto/create-ticket.dto.js';
+import { FilterTicketQueryDto } from './dto/filter-ticket-query.dto.js';
 
 @Controller('tickets')
 
@@ -10,11 +11,8 @@ export class TicketsController {
   constructor (private readonly ticketsService: TicketsService) {}
 
   @Get()
-  findAll(
-    @Query('status') status?: Ticket['status'],
-    @Query('priority') priority?: Ticket['priority']
-  ) {
-    return this.ticketsService.findAll(status, priority);
+  findAll(@Query() filters: FilterTicketQueryDto) {
+    return this.ticketsService.findAll(filters);
   };
 
   @Get(':id')
