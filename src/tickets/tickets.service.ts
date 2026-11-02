@@ -32,7 +32,19 @@ export class TicketsService {
     }
   ];
 
-  findAll() {
+  findAll(status?: Ticket['status'], priority?: Ticket['priority']) {
+    if (status && priority) {
+      return this.tickets.filter(ticket => ticket.status === status && ticket.priority === priority);
+    }
+
+    if (status) {
+      return this.tickets.filter(ticket => ticket.status === status);
+    }
+
+    if (priority) {
+      return this.tickets.filter(ticket => ticket.priority === priority);
+    }
+
     return this.tickets;
   };
 
