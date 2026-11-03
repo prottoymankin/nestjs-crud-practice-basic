@@ -94,4 +94,20 @@ export class TicketsService {
     return ticket;
   };
 
+  closeTicket(id: number) {
+    const ticket = this.tickets.find(ticket => ticket.id === id);
+    
+    if (!ticket) {
+      throw new NotFoundException('Ticket not found');
+    }
+
+    if (ticket.status === 'closed') {
+      throw new BadRequestException('Ticket is already closed.');
+    }
+
+    ticket.status = 'closed';
+
+    return ticket;
+  };
+
 };
